@@ -1,140 +1,3 @@
-// "use client";
-
-// import { useState, useRef, useEffect } from "react";
-
-// const SUGGESTED_PROMPTS = [
-//   "Tell me about Diwali through a local's eyes",
-//   "What does a wedding feast look like in Morocco?",
-//   "Describe the streets of Kyoto during cherry blossom season",
-//   "What is the story behind Day of the Dead in Mexico?",
-// ];
-
-// type Message = {
-//   role: "user" | "assistant";
-//   content: string;
-// };
-
-// export default function Home() {
-//   const [messages, setMessages] = useState<Message[]>([]);
-//   const [input, setInput] = useState("");
-//   const [loading, setLoading] = useState(false);
-//   const bottomRef = useRef<HTMLDivElement>(null);
-
-//   useEffect(() => {
-//     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-//   }, [messages, loading]);
-
-//   const sendMessage = async (text: string) => {
-//     if (!text.trim() || loading) return;
-
-//     const newMessages: Message[] = [...messages, { role: "user", content: text }];
-//     setMessages(newMessages);
-//     setInput("");
-//     setLoading(true);
-
-//     try {
-//       const res = await fetch("/api/chat", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ messages: newMessages }),
-//       });
-//       const data = await res.json();
-//       setMessages([...newMessages, { role: "assistant", content: data.message }]);
-//     } catch {
-//       setMessages([...newMessages, { role: "assistant", content: "Something went wrong. Please try again." }]);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <main className="min-h-screen bg-[#f5f0e8] text-[#2c1a0e] font-serif flex flex-col items-center">
-//       <header className="w-full max-w-2xl pt-10 pb-4 px-4 text-center">
-//         <h1 className="text-5xl font-bold tracking-tight">Dastaan</h1>
-//         <p className="mt-2 text-[#7a5c3a] text-lg italic">
-//           Every culture has a story. Ask for yours.
-//         </p>
-//       </header>
-
-//       <div className="w-full max-w-2xl flex-1 px-4 pb-4 space-y-4 overflow-y-auto">
-//         {messages.length === 0 && (
-//           <div className="mt-8 space-y-3">
-//             <p className="text-center text-[#9c7a5a] text-sm uppercase tracking-widest">
-//               Start with a story...
-//             </p>
-//             <div className="grid grid-cols-1 gap-2">
-//               {SUGGESTED_PROMPTS.map((prompt) => (
-//                 <button
-//                   key={prompt}
-//                   onClick={() => sendMessage(prompt)}
-//                   className="text-left px-4 py-3 rounded-lg border border-[#c9a97a] bg-[#fdf6e3] hover:bg-[#f0e6cc] transition text-sm text-[#5a3e28] italic"
-//                 >
-//                   "{prompt}"
-//                 </button>
-//               ))}
-//             </div>
-//           </div>
-//         )}
-
-//         {messages.map((msg, i) => (
-//           <div
-//             key={i}
-//             className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-//           >
-//             <div
-//               className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
-//                 msg.role === "user"
-//                   ? "bg-[#8b5e3c] text-[#fdf6e3] rounded-br-sm"
-//                   : "bg-[#fdf6e3] border border-[#d4b483] text-[#2c1a0e] rounded-bl-sm"
-//               }`}
-//             >
-//               {msg.content}
-//             </div>
-//           </div>
-//         ))}
-
-//         {loading && (
-//           <div className="flex justify-start">
-//             <div className="px-4 py-3 rounded-2xl rounded-bl-sm bg-[#fdf6e3] border border-[#d4b483] text-[#9c7a5a] text-sm italic">
-//               Dastaan is writing...
-//             </div>
-//           </div>
-//         )}
-
-//         <div ref={bottomRef} />
-//       </div>
-
-//       <div className="w-full max-w-2xl px-4 pb-8">
-//         <div className="flex gap-2 items-end border border-[#c9a97a] rounded-xl bg-[#fdf6e3] px-4 py-3">
-//           <textarea
-//             value={input}
-//             onChange={(e) => setInput(e.target.value)}
-//             onKeyDown={(e) => {
-//               if (e.key === "Enter" && !e.shiftKey) {
-//                 e.preventDefault();
-//                 sendMessage(input);
-//               }
-//             }}
-//             placeholder="Ask about any culture, festival, food tradition..."
-//             rows={1}
-//             className="flex-1 resize-none bg-transparent outline-none text-sm text-[#2c1a0e] placeholder:text-[#b09070]"
-//           />
-//           <button
-//             onClick={() => sendMessage(input)}
-//             disabled={loading || !input.trim()}
-//             className="text-[#8b5e3c] disabled:opacity-30 hover:text-[#5a3e28] transition font-bold text-lg"
-//           >
-//             ↑
-//           </button>
-//         </div>
-//         <p className="text-center text-xs text-[#b09070] mt-2">
-//           Press Enter to send · Shift+Enter for new line
-//         </p>
-//       </div>
-//     </main>
-//   );
-// }
-
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -209,8 +72,8 @@ function AssistantMessage({ content, onFollowup }: { content: string; onFollowup
     <div className="space-y-3">
       {sections.map((s, i) => (
         <div key={i}>
-          <p className="font-semibold text-sm text-[#8b5e3c] mb-1">{s.title}</p>
-          <p className="text-sm leading-relaxed text-[#2c1a0e]">{s.content}</p>
+          <p className="font-semibold text-sm mb-1" style={{ color: "#c9a97a" }}>{s.title}</p>
+          <p className="text-sm leading-relaxed" style={{ color: "inherit" }}>{s.content}</p>
         </div>
       ))}
 
@@ -404,3 +267,4 @@ export default function Home() {
     </main>
   );
 }
+
